@@ -1,0 +1,35 @@
+# Define a dictionary of exchange rates (example: USD to other currencies)
+exchange_rates = {
+    'USD': 1.0,  # Base currency
+    'EUR': 0.85,  # USD to EUR
+    'INR': 83.21,  # USD to INR
+    'JPY': 149.54,  # USD to JPY
+    'GBP': 0.76  # USD to GBP
+}
+
+def convert_currency(amount, from_currency, to_currency):
+    """Convert amount from one currency to another based on hard-coded rates."""
+    try:
+        if from_currency not in exchange_rates:
+            raise ValueError(f"Unsupported 'from' currency: {from_currency}")
+        if to_currency not in exchange_rates:
+            raise ValueError(f"Unsupported 'to' currency: {to_currency}")
+        
+        # Convert from the base currency (USD) to the target currency
+        amount_in_usd = amount / exchange_rates[from_currency]
+        converted_amount = amount_in_usd * exchange_rates[to_currency]
+        
+        return converted_amount
+
+    except ValueError as e:
+        return str(e)
+    except Exception as e:
+        return f"An error occurred: {e}"
+
+# Test the function
+amount = 100  # Amount in the original currency
+from_currency = 'USD'  # Convert from USD
+to_currency = 'INR'  # Convert to INR
+
+result = convert_currency(amount, from_currency, to_currency)
+print(f"{amount} {from_currency} is {result:.2f} {to_currency}")
